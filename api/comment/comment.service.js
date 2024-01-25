@@ -19,11 +19,12 @@ async function query(filterBy = { txt: '' }) {
             commentCursor.skip(filterBy.pageIdx * PAGE_SIZE).limit(PAGE_SIZE)
         }
 
-        const comments = await commentCursor.toArray()
+        let comments = await commentCursor.toArray()
 
         comments.forEach(comment => {
             comment.createdAt = comment._id.getTimestamp().valueOf()
         })
+        comments = comments.sort((a, b) => b.createdAt - a.createdAt)
 
         return comments
     } catch (err) {
