@@ -30,8 +30,6 @@ import { commentRoutes } from './api/comment/comment.routes.js'
 import { setupSocketAPI } from './services/socket.service.js'
 
 // routes
-import { setupAsyncLocalStorage } from './middlewares/setupAls.middleware.js'
-app.all('*', setupAsyncLocalStorage)
 
 app.use('/api/comment', commentRoutes)
 setupSocketAPI(server)

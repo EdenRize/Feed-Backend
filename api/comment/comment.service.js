@@ -22,7 +22,7 @@ async function query(filterBy = { txt: '' }) {
         const comments = await commentCursor.toArray()
 
         comments.forEach(comment => {
-            comment.createdAt = comment._id.getTimestamp()
+            comment.createdAt = comment._id.getTimestamp().valueOf()
         })
 
         return comments
@@ -36,7 +36,7 @@ async function getById(commentId) {
     try {
         const collection = await dbService.getCollection('comment')
         const comment = collection.findOne({ _id: ObjectId(commentId) })
-        comment.createdAt = comment._id.getTimestamp()
+        comment.createdAt = comment._id.getTimestamp().valueOf()
         return comment
     } catch (err) {
         logger.error(`while finding comment ${commentId}`, err)
