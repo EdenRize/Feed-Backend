@@ -2,19 +2,16 @@
     {
         "email": "David@gmail.com",
         "txt": "It's amazing!",
-        "createdAt": 1705850934969,
         "imgUrl": "https://res.cloudinary.com/dkvliixzt/image/upload/v1704360556/catt_dytsgq.jpg"
     },
     {
         "email": "Sarah@example.com",
         "txt": "Really impressive work!",
-        "createdAt": 1705758692701,
         "imgUrl": "https://res.cloudinary.com/dkvliixzt/image/upload/v1704360614/noam_tdr2rp.jpg"
     },
     {
         "email": "Alex@outlook.com",
         "txt": "This tool has made my life so much easier!",
-        "createdAt": 1705710170986,
         "imgUrl": "https://res.cloudinary.com/dkvliixzt/image/upload/v1705356175/7B12EEEE-8B9C-489B-882B-D5B8E47D9874_pjpibk.jpg"
     }
 ]

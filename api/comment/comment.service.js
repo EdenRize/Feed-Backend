@@ -10,8 +10,8 @@ const PAGE_SIZE = 3
 async function query(filterBy = { txt: '' }) {
     try {
         const criteria = {
-            vendor: { $regex: filterBy.txt, $options: 'i' }
-        }
+            txt: { $regex: filterBy.txt, $options: 'i' }
+        };
         const collection = await dbService.getCollection('comment')
         var commentCursor = await collection.find(criteria)
 
@@ -19,7 +19,12 @@ async function query(filterBy = { txt: '' }) {
             commentCursor.skip(filterBy.pageIdx * PAGE_SIZE).limit(PAGE_SIZE)
         }
 
-        const comments = commentCursor.toArray()
+        const comments = await commentCursor.toArray()
+
+        comments.forEach(comment => {
+            comment.createdAt = comment._id.getTimestamp()
+        })
+
         return comments
     } catch (err) {
         logger.error('cannot find comments', err)
@@ -31,6 +36,7 @@ async function getById(commentId) {
     try {
         const collection = await dbService.getCollection('comment')
         const comment = collection.findOne({ _id: ObjectId(commentId) })
+        comment.createdAt = comment._id.getTimestamp()
         return comment
     } catch (err) {
         logger.error(`while finding comment ${commentId}`, err)
@@ -63,8 +69,7 @@ async function add(comment) {
 async function update(comment) {
     try {
         const commentToSave = {
-            vendor: comment.vendor,
-            price: comment.price
+            txt: comment.txt
         }
         const collection = await dbService.getCollection('comment')
         await collection.updateOne({ _id: ObjectId(comment._id) }, { $set: commentToSave })
