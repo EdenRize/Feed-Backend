@@ -35,7 +35,7 @@ async function query(filterBy = { txt: '' }) {
 async function getById(commentId) {
     try {
         const collection = await dbService.getCollection('comment')
-        const comment = collection.findOne({ _id: ObjectId(commentId) })
+        const comment = await collection.findOne({ _id: ObjectId(commentId) })
         comment.createdAt = comment._id.getTimestamp().valueOf()
         return comment
     } catch (err) {
