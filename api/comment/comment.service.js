@@ -58,8 +58,10 @@ async function remove(commentId) {
 async function add(comment) {
     try {
         const collection = await dbService.getCollection('comment')
-        await collection.insertOne(comment)
-        return comment
+        const result = await collection.insertOne(comment)
+        const insertedComment = result.ops[0];
+        insertedComment.createdAt = comment._id.getTimestamp().valueOf()
+        return insertedComment
     } catch (err) {
         logger.error('cannot insert comment', err)
         throw err
